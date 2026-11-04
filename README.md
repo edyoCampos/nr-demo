@@ -21,3 +21,13 @@ Commits follow Conventional Commits: `type: short message`.
 - `docs`: documentation only changes
 - `refactor`: code change that neither fixes a bug nor adds a feature
 - `chore`: maintenance and tooling
+
+## Usage
+
+```python
+from src.preprocessing import clean_text
+from src.classifier import classify
+
+text = clean_text("I love this, it is great!")
+print(classify(text))  # positive
+```
