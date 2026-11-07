@@ -1,3 +1,5 @@
+"""Minimal Flask app used in docker exercise 1."""
+
 from flask import Flask
 
 app = Flask(__name__)
@@ -5,6 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
+    """Return a greeting message."""
     return "Hello from Docker!"
 
 
