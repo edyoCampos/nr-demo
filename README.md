@@ -5,12 +5,10 @@ It cleans text and classifies it as positive, negative or neutral using simple w
 
 ## Branch model
 
-- `main`: initial state of the repository
+- `main`: production, the only source of truth for released code
 - `develop`: integration branch for finished features
-- `stage`: pre-release validation
-- `production`: released code
-- `feature/*`: new features, branched from and merged back into `develop`
-- `hotfix/*`: urgent fixes for `production`
+- `feature/*`: new features, branched from `develop` and merged back into `develop`
+- `hotfix/*`: urgent fixes, branched from `main` and merged back into both `main` and `develop`
 
 ## Commit convention
 
