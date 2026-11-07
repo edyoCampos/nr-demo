@@ -36,22 +36,24 @@ def create_message():
     text = payload.get("text")
     if not text:
         return jsonify({"error": "field 'text' is required"}), 400
-    with closing(get_connection()) as conn, conn, conn.cursor() as cur:
-        ensure_table(cur)
-        cur.execute(
-            "INSERT INTO messages (text) VALUES (%s) RETURNING id", (text,)
-        )
-        message_id = cur.fetchone()[0]
+    with closing(get_connection()) as conn:
+        with conn, conn.cursor() as cur:
+            ensure_table(cur)
+            cur.execute(
+                "INSERT INTO messages (text) VALUES (%s) RETURNING id", (text,)
+            )
+            message_id = cur.fetchone()[0]
     return jsonify({"id": message_id, "text": text}), 201
 
 
 @app.route("/messages", methods=["GET"])
 def list_messages():
     """Return all stored messages."""
-    with closing(get_connection()) as conn, conn, conn.cursor() as cur:
-        ensure_table(cur)
-        cur.execute("SELECT id, text, created_at FROM messages ORDER BY id")
-        rows = cur.fetchall()
+    with closing(get_connection()) as conn:
+        with conn, conn.cursor() as cur:
+            ensure_table(cur)
+            cur.execute("SELECT id, text, created_at FROM messages ORDER BY id")
+            rows = cur.fetchall()
     return jsonify(
         [
             {"id": row[0], "text": row[1], "created_at": row[2].isoformat()}
