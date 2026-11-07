@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.git
+docker-compose*.yml
+README.md
+Dockerfile
+.dockerignore
+.env.example
