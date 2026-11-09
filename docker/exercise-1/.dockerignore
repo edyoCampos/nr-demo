@@ -1,6 +1,0 @@
-__pycache__/
-*.pyc
-.env
-.git
-docker-compose*.yml
-README.md
