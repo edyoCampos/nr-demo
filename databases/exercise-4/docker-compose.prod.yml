@@ -1,0 +1,26 @@
+# Production environment for exercise 4 (MongoDB on port 27019).
+# Uses the final optimized image from Dockerfile.prod and mounts no volumes.
+#
+#   docker compose -f docker-compose.prod.yml up --wait
+#   docker compose -f docker-compose.prod.yml down -v
+#
+# The official mongo image declares VOLUME /data/db, so Docker creates anonymous
+# volumes for it even without mounts. Use down -v to remove them.
+
+name: exercise-4-prod
+
+services:
+  db_mongo_prod:
+    build:
+      # The context is the databases/ folder (see databases/.dockerignore).
+      context: ..
+      dockerfile: exercise-4/Dockerfile.prod
+    image: exercise-4-mongo-prod
+    container_name: orion_mongo_prod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-orion_admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-orion_admin_pass}
+    ports:
+      # <host port>:<container port>. 27017 is used by db_mongo, 27018 by dev.
+      - "27019:27017"
+    # The healthcheck comes from Dockerfile.prod.
