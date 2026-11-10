@@ -8,6 +8,7 @@ Bootcamp exercises repository, organized by content.
 | --- | --- | --- |
 | [gitflow/](./gitflow) | Git and Git Flow | [gitflow/README.md](./gitflow/README.md) |
 | [docker/](./docker) | Docker | [docker/README.md](./docker/README.md) |
+| [databases/](./databases) | Databases (PostgreSQL and MongoDB) | [databases/README.md](./databases/README.md) |
 
 ## Branch model
 
