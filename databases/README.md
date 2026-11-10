@@ -31,8 +31,6 @@ docker compose up -d
 docker compose ps
 ```
 
-Docker Compose v2 prints a warning that the `version` attribute is obsolete. It is expected and can be ignored.
-
 Both services should be `healthy`, and each one answers a connection test:
 
 ![Environment up](00-environment-up.png)
