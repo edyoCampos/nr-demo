@@ -1,0 +1,6 @@
+# Development image for exercise 4.
+# The init script is bind-mounted by docker-compose.dev.yml, so it can be edited without rebuilding.
+FROM mongo:9.0.4
+
+# Database used by the init scripts in /docker-entrypoint-initdb.d.
+ENV MONGO_INITDB_DATABASE=orion_db
