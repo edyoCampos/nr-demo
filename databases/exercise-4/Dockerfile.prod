@@ -1,0 +1,13 @@
+# Production image for exercise 4.
+# Self-contained: the init script is copied into the image, so no volumes or mounts are needed.
+FROM mongo:9.0.4
+
+# Database used by the init scripts in /docker-entrypoint-initdb.d.
+ENV MONGO_INITDB_DATABASE=orion_db
+
+# Reuse the exercise 3 script to create the posts collection on the first start.
+# One COPY keeps a single extra layer on top of the base image.
+COPY exercise-3/exercise-3.js /docker-entrypoint-initdb.d/exercise-3.js
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
+  CMD echo 'db.runCommand("ping").ok' | mongosh --quiet || exit 1

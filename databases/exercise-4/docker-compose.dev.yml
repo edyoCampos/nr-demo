@@ -1,0 +1,34 @@
+# Development environment for exercise 4 (MongoDB on port 27018).
+# Mounts local files, exposes the port and builds from Dockerfile.dev.
+#
+#   docker compose -f docker-compose.dev.yml up -d --build --wait
+#   docker compose -f docker-compose.dev.yml down -v
+
+name: exercise-4-dev
+
+services:
+  db_mongo_dev:
+    build:
+      # The context is the databases/ folder (see databases/.dockerignore).
+      context: ..
+      dockerfile: exercise-4/Dockerfile.dev
+    image: exercise-4-mongo-dev
+    container_name: orion_mongo_dev
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-orion_admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-orion_admin_pass}
+    ports:
+      # <host port>:<container port>. 27017 is used by db_mongo, 27019 by prod.
+      - "27018:27017"
+    volumes:
+      # Reuses the exercise 3 script as the init script, so posts is created on the first start.
+      - ../exercise-3/exercise-3.js:/docker-entrypoint-initdb.d/exercise-3.js:ro
+      - mongo_dev_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo_dev_data:

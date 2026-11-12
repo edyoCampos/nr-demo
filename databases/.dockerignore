@@ -1,0 +1,5 @@
+# Build context ignore file for the exercise 4 images.
+# The context is the databases/ folder, so this file lives here.
+# Ignore everything and let in only the script reused as the init script of the prod image.
+*
+!exercise-3/exercise-3.js
